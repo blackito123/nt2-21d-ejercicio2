@@ -4,27 +4,27 @@ import { ref, computed } from 'vue';
 // Datos de ejemplo (reemplaza con los datos reales si están en otro componente o archivo)
 const personas = ref([
   { nombre: 'Juan Perez', dni: '12345678' },
-  { nombre: 'Ana Gomez', dni: '87654321' },
-  { nombre: 'Carlos Lopez', dni: '11223344' },
-  { nombre: 'Maria Rodriguez', dni: '44332211' },
+  { nombre: 'Ana Gomez', dni: '23142112' },
+  { nombre: 'Carlos Lopez', dni: '12345679' },
+  { nombre: 'Maria Rodriguez', dni: '87654321' },
 ]);
 
-// Variables reactivas para los filtros
+// variables para los filtros
 const filtroNombre = ref('');
 const filtroDni = ref('');
 
-// Propiedad computada para filtrar personas
+// filtrar personas
 const personasFiltradas = computed(() => {
   let resultado = personas.value;
 
-  // Filtro por nombre (mínimo 3 caracteres)
+  // filtro por nombre (mínimo 3 caracteres)
   if (filtroNombre.value.length >= 3) {
     resultado = resultado.filter((persona) =>
       persona.nombre.toLowerCase().includes(filtroNombre.value.toLowerCase())
     );
   }
 
-  // Filtro por DNI (mínimo 3 caracteres)
+  // filtro por DNI (mínimo 3 caracteres)
   if (filtroDni.value.length >= 3) {
     resultado = resultado.filter((persona) =>
       persona.dni.includes(filtroDni.value)
@@ -34,7 +34,7 @@ const personasFiltradas = computed(() => {
   return resultado;
 });
 
-// Propiedad computada para mostrar el alert
+// propiedadpara mostrar el alert
 const mostrarAdvertencia = computed(() => {
   return (
     (filtroNombre.value.length > 0 && filtroNombre.value.length < 3) ||
@@ -42,7 +42,7 @@ const mostrarAdvertencia = computed(() => {
   );
 });
 
-// Métodos para limpiar filtros
+// metodos para limpiar filtros
 const limpiarFiltroDniSiNecesario = () => {
   if (filtroNombre.value.length === 0 && filtroDni.value.length < 3) {
     filtroDni.value = '';
@@ -60,7 +60,7 @@ const limpiarFiltroNombreSiNecesario = () => {
   <div class="container mt-4">
     <h1 class="mb-4">Lista de Personas</h1>
 
-    <!-- Filtros de búsqueda -->
+    <!-- filtros de búsqueda -->
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="filtroNombre" class="form-label">Filtrar por Nombre:</label>
@@ -84,12 +84,12 @@ const limpiarFiltroNombreSiNecesario = () => {
       </div>
     </div>
 
-    <!-- Alert de advertencia -->
+    <!-- advertencia -->
     <div v-if="mostrarAdvertencia" class="alert alert-warning" role="alert">
       Por favor, ingrese al menos 3 caracteres en alguno de los filtros.
     </div>
 
-    <!-- Lista de personas -->
+    <!-- lista de personas -->
     <ul class="list-group">
       <li
         v-for="persona in personasFiltradas"
